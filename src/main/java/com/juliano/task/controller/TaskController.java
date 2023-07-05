@@ -28,7 +28,6 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 
-	//TODO Realizar as anotações do swaager.
 	@PostMapping
 	@Transactional
 	public ResponseEntity<TaskDTO> createTask(@RequestBody @Valid TaskForm taskForm) {
@@ -47,7 +46,7 @@ public class TaskController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@PatchMapping("/{id")
+	@PatchMapping("/{id}")
 	@Transactional
 	public ResponseEntity<TaskDTO> updateStatusTask(@PathVariable Long id, @RequestBody @Valid UpdateStatusTaskForm task) {
 		Optional<Task> optional = taskService.findById(id);
