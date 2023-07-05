@@ -1,6 +1,8 @@
 package com.juliano.task.repository;
 
-//TODO Realizar a herança para o repositorio.
-public interface TaskRepository {
+import com.juliano.task.model.Task;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TaskRepository extends JpaRepository<Task, Long> {
 
 }

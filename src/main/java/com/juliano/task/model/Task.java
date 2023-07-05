@@ -5,29 +5,29 @@ import java.time.LocalDateTime;
 
 import com.juliano.task.enumeration.TaskStatus;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
-//TODO
-// Realizar as anotações da entidade
+@Entity
 public class Task implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	//TODO Primary Key
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	//TODO Definir como notnull
+	@Column(nullable = false)
 	private String title;
 
-	//TODO Definir como notnull
+	@Column(nullable = false)
 	private String description;
 
-	//TODO Definir como notnull
+	@Column(nullable = false)
 	private LocalDateTime creationDate;
 
 	@Enumerated(EnumType.STRING)
-	//TODO Definir como notnull
+	@Column(nullable = false)
 	private TaskStatus status;
 
 	public Task() {

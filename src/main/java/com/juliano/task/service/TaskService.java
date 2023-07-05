@@ -2,6 +2,7 @@ package com.juliano.task.service;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,35 +12,38 @@ import com.juliano.task.form.UpdateStatusTaskForm;
 import com.juliano.task.form.UpdateTaskForm;
 import com.juliano.task.model.Task;
 import com.juliano.task.repository.TaskRepository;
+import org.springframework.stereotype.Service;
 
-//TODO Anotação para o serviço
+@Service
 public class TaskService {
 
-	//TODO Realizar a injeção de dependencia.
+	@Autowired
 	private TaskRepository taskRepository;
 
 	public Task createTask(TaskForm task) {
-		//TODO Criar a atividade e realezar a conversão do taskFrom para task.
+		Task newTask = task.converter();
+		return taskRepository.save(newTask);
 	}
 
 	public Task updateTask(Long id, UpdateTaskForm updateTaskForm) {
-		//TODO Atualizar a atividade e realezar a conversão do updateTaskForm para task.
+		 return taskRepository.save(updateTaskForm.converter(id, taskRepository));
 	}
 	
 	public Task updateTask(Long id, UpdateStatusTaskForm updateStatusTaskForm) {
-		//TODO Atualizar a o status da atividade e realezar a conversão do updateStatusTaskForm para task.
+		return taskRepository.save(updateStatusTaskForm.converter(id, taskRepository));
 	}
 
 	public Page<TaskDTO> getAllTasks(Pageable pagination) {
-		//TODO Recuperar a lista usando paginação.
-		//TODO Converter o tasks para tasksDTO.
+		Page<Task> task = taskRepository.findAll(pagination);
+		Page<TaskDTO> taskDTO = TaskDTO.converter(task);
+		return taskDTO;
 	}
 	
 	public Optional<Task> findById(Long id) {
-		//TODO Recuperar a task por id.
+		return taskRepository.findById(id);
 	}
 
 	public void deleteTask(Long id) {
-		//TODO Deletar a task.
+		taskRepository.deleteById(id);
 	}
 }
